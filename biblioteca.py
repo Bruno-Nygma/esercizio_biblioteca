@@ -37,14 +37,19 @@ class Biblioteca:
 
 	def prestito(self, isbn, tessera_utente):
 		for l in self.catalogo:
+
 			if l.isbn == isbn:
+
 				if l.disponibile:
 
 					for u in self.utenti:
+
 						if u.id_tessera == tessera_utente:
+
 							if u.is_pieno_prestiti():
 								print("Ha raggiunto il limite di prestiti")
 								return False
+								
 							l.disponibile = False
 							u.prestiti += 1
 							prestito = Operazione(tessera_utente, isbn, "prestito")
@@ -61,7 +66,45 @@ class Biblioteca:
 		return False
 
 	def restituzione(self, isbn, tessera_utente):
-		pass
+		for l in self.catalogo:
+
+			if l.isbn == isbn:
+
+				for u in self.utenti:
+
+					if u.id_tessera == tessera_utente:
+
+						prestiti = 0
+						restituzioni = 0
+
+						for o in self.storico_operazioni:
+
+							if o.tessera_utente == tessera_utente and o.isbn == isbn:
+
+								if o.tipo == "prestito":
+									prestiti += 1
+								else:
+									restituzioni +=1
+
+						if prestiti > restituzioni:
+
+							restituzione = Operazione(tessera_utente, isbn, "restituzione")
+							self.storico_operazioni.append(restituzione)
+							u.prestiti -= 1
+							l.disponibile = True
+							print("Grazie per aver restituito il libro")
+							return True
+
+						print("Non hai preso in prestito questo libro")
+						return False
+
+				print("Questo numero di tessera non esiste")
+				return False
+
+		print("Errore, questo libro non è nel catalogo")
+		return False
+
+		
 
 	def ricerca_titolo(self, titolo):
 		pass
