@@ -12,6 +12,8 @@ if __name__ == "__main__":
 
 	biblioteca.aggiungi_utente("paolo")
 	biblioteca.aggiungi_utente("bruno")
+
+	print(biblioteca.libri_disponibili())
 	
 	biblioteca.prestito("66010b", "000000")
 	biblioteca.prestito("66010b", "000001")
@@ -20,5 +22,8 @@ if __name__ == "__main__":
 	biblioteca.prestito("aeiouy123", "000000")
 	biblioteca.prestito("aeiouy123", "000001")
 
+	biblioteca.restituzione("66010b", "000000")
+	biblioteca.restituzione("66010a", "000000")
+	biblioteca.restituzione("aeiouy123", "000000")
 
-	print(biblioteca.storico_operazioni)
+	print(biblioteca.storico_prestiti("000001"))

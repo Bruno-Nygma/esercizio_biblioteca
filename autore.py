@@ -7,3 +7,6 @@ class Autore:
 		if self.nome == autore.nome and self.nazionalita == autore.nazionalita:
 			return True
 		return False
+
+	def __repr__(self):
+		return f"Autore(nome: {self.nome}, nazionalità: {self.nazionalita})"
